@@ -37,7 +37,7 @@ class App{
 
         let dots;
         for(let i = 0;i<this.hills.length;i++){
-            dots = this.hill[i].draw(this.ctx);
+            dots = this.hills[i].draw(this.ctx);
         }
     }
 } 
