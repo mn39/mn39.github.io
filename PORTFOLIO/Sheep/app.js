@@ -38,6 +38,7 @@ class App{
         let dots;
         for(let i = 0;i<this.hills.length;i++){
             console.log(this.hills[i])
+            console.log('??')
             dots = this.hills[i].draw(this.ctx);
         }
     }
