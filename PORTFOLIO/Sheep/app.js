@@ -36,10 +36,8 @@ class App{
         this.ctx.clearRect(0,0,this.stageWidth,this.stageHeight);
 
         let dots;
-        console.log('why')
         for(let i = 0;i<this.hills.length;i++){
-            console.log(this.hills[i])
-            console.log('??')
+            // console.log(this.hills[i])
             dots = this.hills[i].draw(this.ctx);
         }
     }

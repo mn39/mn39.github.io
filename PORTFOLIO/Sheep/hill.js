@@ -21,6 +21,7 @@ export class Hill {
 
     draw(ctx) {
         ctx.fillStyle = this.color;
+        // console.log(this.color)
         ctx.beginPath();
 
         let cur = this.points[0];
@@ -29,10 +30,9 @@ export class Hill {
         let dots = [];
 
         ctx.moveTo(cur.x, cur.y);
-
+        // console.log(cur.x,cur.y)
         let prevCx = cur.x;
         let prevCy = cur.y;
-
         for (let i = 1; i < this.points.length; i++) {
             cur = this.points[i];
             const cx = (prev.x + cur.x) / 2;
@@ -54,13 +54,12 @@ export class Hill {
         ctx.lineTo(this.stageWidth,this.stageHeight);
         ctx.lineTo(this.points[0].x,this.stageHeight);
         ctx.fill();
-        
         return dots;
     }
 
     getY() {
         const min = this.stageHeight / 8;
         const max = this.stageHeight - min;
-        return min + Math.random * max;
+        return min + Math.random() * max;
     }
 }
