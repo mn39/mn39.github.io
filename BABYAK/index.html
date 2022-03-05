@@ -88,6 +88,7 @@
           check_vis.style.visibility='hidden';
   
       }
+      document.getElementById('sendit').value = daylist;
   
       console.log(id);
       }
@@ -212,17 +213,10 @@
       }
   }
   </script>
-  <form action="https://localhost:5000/test" method="POST">
-    <div class="form-group">
-        <label>제목</label>
-        <input type="text" class="form-control" name="title">
-    </div>
-
-    <div class="form-group">
-        <label>날짜</label>
-        <input type="text" class="form-control" name="date">
-    </div>
-    <button type="submit" class="btn btn-outline-secondary">Submit</button>
+  <form action="http://localhost/param">
+    <input type="text" name="pname">
+    <input type="text" id="sendit" name="possDate" value="asdf" style="visibility: hidden;">
+    <button type="submit">Submit</button>
   </form>
 </body>
 
