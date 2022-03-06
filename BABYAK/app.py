@@ -23,7 +23,7 @@ def writeall(reanwdata):
     nw = set(data[0][1])
     for n,date in data: 
         nw = nw&set(date)
-
+    print(nw, 'poss date!!')
     f=open("memory.txt",'w')
     for n,date in data:
         f.write(n)
