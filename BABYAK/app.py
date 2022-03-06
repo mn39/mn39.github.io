@@ -41,6 +41,8 @@ def hello():
 
     a = request.args.get('pname')
     b = request.args.get('possDate')
+    if(a==None or b == None):
+        return "sorry please check your name or possible days"
     writeall([a,b.split(',')])
     return "thx"
 
