@@ -35,6 +35,7 @@ def writeall(reanwdata):
     f.write('\n')
     f.write(str(list(nw)))
     f.close()
+    print('end')
 
 @app.route('/param')
 def hello():
