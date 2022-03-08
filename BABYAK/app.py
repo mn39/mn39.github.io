@@ -20,6 +20,7 @@ def writeall(reanwdata):
 
     print(data,'this is data')
 
+    print('??')
     nw = set(data[0][1])
     for n,date in data: 
         nw = nw&set(date)
