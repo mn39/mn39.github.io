@@ -1,5 +1,23 @@
 import { puell_multiple } from './subScript/puell_multiple.js';
 import { mvrv_zscore } from './subScript/mvrv_zscore.js';
+import { terminal_price } from './subScript/terminal_price.js';
+
+const [terminalResult, puellResult, zscoreResult] = await Promise.all([
+  terminal_price(),
+  puell_multiple(),
+  mvrv_zscore(),
+]);
+
+const term = terminalResult?.response?.chart?.figure?.data;
+
+const btc_price = term?.[0]?.y?.at(-1) || -1;
+const term_price = term?.[1]?.y?.at(-1) || -1;
+
+let puell = puellResult?.response?.chart?.figure?.data?.[7]?.y?.at(-1);
+puell = ((puell * 1000) | 0) / 1000;
+
+let zscore = zscoreResult?.response?.chart?.figure?.data?.[6]?.y?.at(-1);
+zscore = ((zscore * 1000) | 0) / 1000;
 
 const data = [
   {
@@ -13,23 +31,28 @@ const data = [
     name: '푸엘 멀티플',
     link: 'https://www.bitcoinmagazinepro.com/charts/puell-multiple/',
     desc: '평소 1~2에서 이동, 3 넘으면 고점',
-    value: (await puell_multiple())?.response?.chart?.figure?.data?.[7]?.y?.at(
-      -1
-    ),
+    value: puell,
     isTop: (v) => v >= 3,
   },
   {
     name: '터미널 가격',
     link: 'https://www.bitcoinmagazinepro.com/charts/terminal-price/',
-    desc: '고점은 검정+빨강 돌파 후 꺾임',
-    value: '안닿음',
-    isTop: (v) => false,
+    desc: '고점은 검정(btc)+빨강(term) 돌파 후 꺾임',
+    value:
+      'term ( ' +
+      ((term_price / 1000) | 0).toString() +
+      'k ) ' +
+      (term_price > btc_price ? '>' : '<=') +
+      ' BTC ( ' +
+      ((btc_price / 1000) | 0).toString() +
+      'k )',
+    isTop: (v) => term_price <= btc_price,
   },
   {
     name: 'mvrv z-score',
     link: 'https://www.bitcoinmagazinepro.com/charts/mvrv-zscore/',
     desc: '7 이상이면 고점 가능성',
-    value: (await mvrv_zscore())?.response?.chart?.figure?.data?.[6]?.y?.at(-1),
+    value: zscore,
     isTop: (v) => v >= 7,
   },
 ];
