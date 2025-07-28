@@ -7,6 +7,7 @@ export async function fetchLatestAltIndex() {
 
     const data = await response.json();
     console.log('✅ 최신 Altcoin Index:', data);
+    return data;
   } catch (err) {
     console.error('❌ fetch 실패:', err.message);
   }

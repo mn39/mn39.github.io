@@ -11,7 +11,11 @@ const [terminalResult, puellResult, zscoreResult, altIndexResult] =
     fetchLatestAltIndex(),
   ]);
 
-const altIndex = altIndexResult?.data || -1;
+const altIndex = altIndexResult?.value || -1;
+const altIndexDate = altIndexResult?.timestamp
+  ? new Date(new Date(altIndexResult.timestamp)).toLocaleString('ko-KR') +
+    ' (KST)'
+  : '알 수 없음';
 
 const term = terminalResult?.response?.chart?.figure?.data;
 
@@ -29,7 +33,8 @@ const data = [
     name: '알트코인 인덱스',
     link: 'https://www.coinglass.com/pro/i/alt-coin-season',
     desc: '',
-    value: -1,
+    value: altIndex,
+    date: altIndexDate,
     isTop: (v) => v >= 75, // 예시 기준
   },
   {
@@ -71,7 +76,10 @@ data.forEach((item) => {
     <td>${item.name}</td>
     <td><a href="${item.link}" target="_blank">링크</a></td>
     <td>${item.desc}</td>
-    <td>${item.value}</td>
+    <td>
+    <div>${item.value}</div>
+    ${item?.date ? `<div>${item.date}</div>` : ''}
+    </td>
     <td>${item.isTop(item.value) ? '✔' : '✘'}</td>
   `;
 
