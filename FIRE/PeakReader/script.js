@@ -1,12 +1,17 @@
 import { puell_multiple } from './subScript/puell_multiple.js';
 import { mvrv_zscore } from './subScript/mvrv_zscore.js';
 import { terminal_price } from './subScript/terminal_price.js';
+import { fetchLatestAltIndex } from './subScript/alt_index.js';
 
-const [terminalResult, puellResult, zscoreResult] = await Promise.all([
-  terminal_price(),
-  puell_multiple(),
-  mvrv_zscore(),
-]);
+const [terminalResult, puellResult, zscoreResult, altIndexResult] =
+  await Promise.all([
+    terminal_price(),
+    puell_multiple(),
+    mvrv_zscore(),
+    fetchLatestAltIndex(),
+  ]);
+
+const altIndex = altIndexResult?.data || -1;
 
 const term = terminalResult?.response?.chart?.figure?.data;
 
