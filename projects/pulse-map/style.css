@@ -104,7 +104,6 @@ a {
 .panel-header,
 .section-head,
 .composer-head,
-.topbar-chip,
 .status-card,
 .search-shell,
 .person-item,
@@ -382,29 +381,6 @@ a {
   padding: 16px;
 }
 
-.stage-topbar {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  z-index: 550;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.topbar-chip {
-  min-height: 40px;
-  padding: 0 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.68);
-  color: var(--ink);
-  backdrop-filter: blur(18px);
-}
-
-.topbar-chip.accent {
-  background: rgba(255, 255, 255, 0.92);
-}
-
 .stage-surface {
   position: relative;
   min-height: calc(100vh - 68px);
@@ -457,7 +433,7 @@ a {
 }
 
 .hero-card {
-  top: 78px;
+  top: 24px;
   max-width: 360px;
   padding: 18px 20px;
 }
@@ -728,25 +704,6 @@ a {
   font-size: 0.82rem;
 }
 
-.context-list,
-.notes-list {
-  display: grid;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.context-list div {
-  padding: 12px 14px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.58);
-}
-
-.notes-list p {
-  padding: 12px 14px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.46);
-}
-
 .emotion-accent-happy { background: linear-gradient(135deg, rgba(253, 224, 71, 0.86), rgba(251, 146, 60, 0.78)); }
 .emotion-accent-joy { background: linear-gradient(135deg, rgba(253, 224, 71, 0.86), rgba(251, 146, 60, 0.78)); }
 .emotion-accent-love { background: linear-gradient(135deg, rgba(251, 207, 232, 0.92), rgba(251, 113, 133, 0.72)); }
@@ -878,12 +835,6 @@ a {
   .profile-identity {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .stage-topbar {
-    top: 12px;
-    left: 12px;
-    right: 12px;
   }
 
   .map-overlay,
