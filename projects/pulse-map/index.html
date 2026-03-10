@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  >
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient-glow ambient-glow-a"></div>
+  <div class="ambient-glow ambient-glow-b"></div>
+
+  <div class="mobile-toolbar">
+    <button class="toolbar-button" id="leftPanelToggle" type="button">탐색</button>
+    <a href="../../index.html" class="toolbar-button toolbar-link">프로젝트</a>
+    <button class="toolbar-button" id="rightPanelToggle" type="button">상세</button>
+  </div>
+
+  <div class="dashboard-shell" id="dashboardShell">
+    <aside class="dashboard-panel left-panel" id="leftPanel">
+      <div class="panel-surface">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Presence</p>
+            <h1>GeoPulse</h1>
+          </div>
+          <button class="panel-close" data-close-panel="left" type="button">닫기</button>
+        </div>
+
+        <a href="../../index.html" class="back-link">Back to projects</a>
+
+        <section class="search-card panel-card">
+          <label class="search-shell" for="searchInput">
+            <span class="search-icon">⌕</span>
+            <input id="searchInput" type="search" placeholder="사람, 지역, 분위기 검색">
+          </label>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat-card panel-card">
+            <span class="stat-label">Online</span>
+            <strong id="onlineCount">1</strong>
+          </article>
+          <article class="stat-card panel-card">
+            <span class="stat-label">Zones</span>
+            <strong>48</strong>
+          </article>
+        </section>
+
+        <section class="status-card panel-card">
+          <div>
+            <p class="status-label">내 상태</p>
+            <p class="status-value" id="activeEmotionLabel">Calm mode</p>
+          </div>
+          <button class="action-button subtle" id="locateButton" type="button">내 위치 갱신</button>
+        </section>
+
+        <div class="sync-pill live" id="syncPill">Local room sync</div>
+
+        <section class="list-card panel-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow small">Nearby vibes</p>
+              <h2>주변 사람들</h2>
+            </div>
+          </div>
+          <div class="people-list" id="peopleList"></div>
+        </section>
+      </div>
+    </aside>
+
+    <main class="stage-column">
+      <section class="stage-card">
+        <div class="stage-topbar">
+          <div class="topbar-chip accent">Live Map</div>
+          <div class="topbar-chip">Focus Area</div>
+          <div class="topbar-chip">Seoul Session</div>
+        </div>
+
+        <div class="stage-surface">
+          <div id="map"></div>
+
+          <section class="map-overlay hero-card">
+            <p class="eyebrow small">Shared room</p>
+            <h2>Local Presence Session</h2>
+            <p>자신의 마커를 눌러 감정을 열고, 말풍선으로 지금 상태를 공유하세요.</p>
+          </section>
+
+          <section class="composer-card" id="composerCard">
+            <div class="composer-head">
+              <div>
+                <p class="eyebrow small">Bubble composer</p>
+                <h3>한마디 남기기</h3>
+              </div>
+              <button class="action-button ghost" id="closeComposer" type="button">닫기</button>
+            </div>
+            <form id="bubbleForm" class="bubble-form">
+              <label for="bubbleInput" class="sr-only">메시지</label>
+              <input id="bubbleInput" name="bubble" type="text" maxlength="64" placeholder="지금 기분이나 한마디를 남겨보세요">
+              <button class="action-button" type="submit">전송</button>
+            </form>
+          </section>
+
+          <div class="emotion-wheel hidden" id="emotionWheel" aria-hidden="true"></div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="dashboard-panel right-panel" id="rightPanel">
+      <div class="panel-surface">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Context</p>
+            <h2>Profile</h2>
+          </div>
+          <button class="panel-close" data-close-panel="right" type="button">닫기</button>
+        </div>
+
+        <section class="profile-hero panel-card" id="profileHero"></section>
+
+        <section class="context-card panel-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow small">MVP</p>
+              <h3>핵심 인터랙션</h3>
+            </div>
+          </div>
+          <div class="context-list">
+            <div>지도 위 실시간 위치 확인</div>
+            <div>자기 핀 클릭 시 감정 원형 메뉴</div>
+            <div>말풍선 기반 짧은 채팅/상태 공유</div>
+          </div>
+        </section>
+
+        <section class="context-card panel-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow small">Polish</p>
+              <h3>완성도 높이기 포인트</h3>
+            </div>
+          </div>
+          <div class="notes-list">
+            <p>감정 상태에 따라 핀 주변 글로우와 애니메이션 변화</p>
+            <p>거리 기반 공개 범위 제어 및 친구 전용 모드</p>
+            <p>채팅 말풍선은 일정 시간 후 흐려지고 다시 열람 가능</p>
+            <p>지도 스타일은 미니멀 + 유리질감 UI로 통일</p>
+          </div>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script src="app.js"></script>
+</body>
+</html>

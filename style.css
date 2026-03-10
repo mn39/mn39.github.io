@@ -147,6 +147,40 @@ body {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
+.card-preview.pulse-map {
+  background:
+    radial-gradient(circle at 25% 30%, rgba(255, 196, 128, 0.28), transparent 26%),
+    radial-gradient(circle at 72% 40%, rgba(120, 255, 214, 0.18), transparent 30%),
+    linear-gradient(135deg, #09131e, #12384a 45%, #0a171b);
+}
+
+.card-preview.pulse-map::before,
+.card-preview.pulse-map::after {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.card-preview.pulse-map::before {
+  width: 112px;
+  height: 112px;
+  top: 38px;
+  left: 34px;
+  box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.03);
+}
+
+.card-preview.pulse-map::after {
+  width: 18px;
+  height: 18px;
+  right: 44px;
+  bottom: 46px;
+  background: #9fffd2;
+  box-shadow:
+    -82px -36px 0 8px rgba(255, 173, 90, 0.9),
+    -38px 18px 0 4px rgba(135, 210, 255, 0.75);
+}
+
 .card-preview.particles {
   background: linear-gradient(135deg, #1a0533, #3d1a78, #7c3aed);
 }
