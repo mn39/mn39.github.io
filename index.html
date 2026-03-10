@@ -1,39 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jihwan Moon</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="index resume">resume</h1>
-      <h1 class="index">projects</h1>
-    </div>
-    <script type="module" src="app.js"></script>
-  </body>
-</html>
-<style>
-  body {
-    /* background-color: #f0f0f0; */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOON JIHWAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="hero">
+    <h1 class="title">
+      <div class="title-line">
+        <span>M</span><!--
+        --><span class="eye"><span class="pupil"></span></span><!--
+        --><span class="eye"><span class="pupil"></span></span><!--
+        --><span>N</span>
+      </div>
+      <div class="title-line second">JIHWAN</div>
+    </h1>
+    <a href="#projects" class="scroll-cta">
+      <span>PROJECTS</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </a>
+  </section>
 
-  .index {
-    text-align: center;
-    margin-top: 200px;
-    font-size: 30px;
-    color: #333;
-  }
-  .resume {
-    margin-right: 350px;
-  }
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-</style>
+  <section class="projects" id="projects">
+    <div class="project-grid">
+      <a href="projects/wave/" class="project-card">
+        <div class="card-preview wave"></div>
+        <div class="card-body">
+          <h3>Wave</h3>
+          <p>Interactive sine wave animation</p>
+        </div>
+      </a>
+      <a href="projects/particles/" class="project-card">
+        <div class="card-preview particles"></div>
+        <div class="card-body">
+          <h3>Particles</h3>
+          <p>Mouse-reactive particle system</p>
+        </div>
+      </a>
+      <a href="projects/clock/" class="project-card">
+        <div class="card-preview clock"></div>
+        <div class="card-body">
+          <h3>Clock</h3>
+          <p>Minimal analog clock</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

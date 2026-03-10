@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wave - MOON JIHWAN</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; overflow: hidden; }
+    canvas { display: block; }
+    .back {
+      position: fixed; top: 1.5rem; left: 1.5rem;
+      color: rgba(255,255,255,0.5); text-decoration: none;
+      font-family: 'Segoe UI', sans-serif; font-size: 0.9rem;
+      font-weight: 600; letter-spacing: 0.1em;
+      transition: color 0.3s;
+      z-index: 10;
+    }
+    .back:hover { color: #fff; }
+  </style>
+</head>
+<body>
+  <a href="../../" class="back">&larr; BACK</a>
+  <canvas id="c"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    let w, h, mouseY;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      mouseY = h / 2;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    document.addEventListener('mousemove', e => { mouseY = e.clientY; });
+
+    const waves = [
+      { color: 'rgba(44, 83, 100, 0.6)', speed: 0.02, amp: 60, freq: 0.008, offset: 0 },
+      { color: 'rgba(32, 58, 67, 0.6)', speed: 0.015, amp: 50, freq: 0.012, offset: 2 },
+      { color: 'rgba(15, 32, 39, 0.6)', speed: 0.025, amp: 40, freq: 0.006, offset: 4 },
+      { color: 'rgba(100, 200, 220, 0.3)', speed: 0.03, amp: 30, freq: 0.01, offset: 1 },
+    ];
+
+    let t = 0;
+
+    function draw() {
+      ctx.fillStyle = '#0a0a0a';
+      ctx.fillRect(0, 0, w, h);
+
+      const baseY = mouseY;
+
+      waves.forEach(wave => {
+        ctx.beginPath();
+        ctx.moveTo(0, h);
+        for (let x = 0; x <= w; x += 2) {
+          const y = baseY
+            + Math.sin(x * wave.freq + t * wave.speed * 60 + wave.offset) * wave.amp
+            + Math.sin(x * wave.freq * 0.5 + t * wave.speed * 30) * wave.amp * 0.5;
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(w, h);
+        ctx.closePath();
+        ctx.fillStyle = wave.color;
+        ctx.fill();
+      });
+
+      t++;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+</html>

@@ -1,49 +1,58 @@
-import { JM } from './jm.js';
-class App {
-  constructor() {
-    this.canvas = document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
+(() => {
+  const eyes = document.querySelectorAll('.eye');
 
-    document.body.appendChild(this.canvas);
+  function trackEyes(clientX, clientY) {
+    eyes.forEach(eye => {
+      const pupil = eye.querySelector('.pupil');
+      const rect = eye.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
 
-    window.addEventListener('resize', this.resize.bind(this), false);
-    this.resize();
+      const dx = clientX - cx;
+      const dy = clientY - cy;
+      const angle = Math.atan2(dy, dx);
+      const dist = Math.hypot(dx, dy);
 
-    this.mouseX = 0;
-    this.mouseY = 0;
+      const maxX = rect.width * 0.18;
+      const maxY = rect.height * 0.18;
+      const ease = Math.min(dist / 200, 1);
 
-    // 마우스 움직임 이벤트 등록
-    this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
+      const x = Math.cos(angle) * maxX * ease;
+      const y = Math.sin(angle) * maxY * ease;
 
-    this.JM = new JM(50, this.stageWidth / 2, this.stageHeight / 2 - 100);
-
-    window.requestAnimationFrame(this.animate.bind(this));
+      pupil.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+    });
   }
 
-  resize() {
-    this.stageWidth = document.body.clientWidth;
-    this.stageHeight = document.body.clientHeight;
+  // Center pupils initially
+  eyes.forEach(eye => {
+    const pupil = eye.querySelector('.pupil');
+    pupil.style.left = '50%';
+    pupil.style.top = '50%';
+    pupil.style.transform = 'translate(-50%, -50%)';
+  });
 
-    this.canvas.width = this.stageWidth * 2;
-    this.canvas.height = this.stageHeight * 2;
-    this.ctx.scale(2, 2);
-  }
+  document.addEventListener('mousemove', e => trackEyes(e.clientX, e.clientY));
 
-  handleMouseMove(event) {
-    const rect = this.canvas.getBoundingClientRect(); // 캔버스의 위치 가져오기
-    this.mouseX = (event.clientX - rect.left) * 2; // 캔버스 기준 X 좌표
-    this.mouseY = (event.clientY - rect.top) * 2; // 캔버스 기준 Y 좌표
-  }
+  document.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    trackEyes(t.clientX, t.clientY);
+  }, { passive: true });
 
-  animate(t) {
-    window.requestAnimationFrame(this.animate.bind(this));
+  // Card entrance animation
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
 
-    this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-
-    this.JM.draw(this.ctx, this.mouseX, this.mouseY);
-  }
-}
-
-window.onload = () => {
-  new App();
-};
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(40px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
+})();
