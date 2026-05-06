@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[75671,["/projects/dalba/_next/static/chunks/0e8k~2ju8.nke.js","/projects/dalba/_next/static/chunks/0_~wigpzln-r6.js"],"ViewportBoundary"]
+3:I[75671,["/projects/dalba/_next/static/chunks/0e8k~2ju8.nke.js","/projects/dalba/_next/static/chunks/0_~wigpzln-r6.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[17159,["/projects/dalba/_next/static/chunks/0e8k~2ju8.nke.js","/projects/dalba/_next/static/chunks/0_~wigpzln-r6.js"],"IconMark"]
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"건조한 환절기에 추천하는 비건 보습 루틴 — d'Alba Journal"}],["$","meta","1",{"name":"description","content":"비건 인증 성분으로만 구성한 환절기 네 단계 보습 루틴. d'Alba 화이트 트러플 스킨케어."}],["$","link","2",{"rel":"canonical","href":"https://dalba.co.kr/ai-insight/vegan-moisture-ritual/"}],["$","link","3",{"rel":"icon","href":"/projects/dalba/favicon.ico?favicon.0x3dzn~oxb6tn.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L5","4",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"2q0Gjv5swR2Oz2hpv4wX4"}
